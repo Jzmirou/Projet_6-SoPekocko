@@ -6,6 +6,7 @@ const url = 'mongodb+srv://jzmirou:openclassroom@cluster0.dwo1r.mongodb.net/SoPe
 const authRoute = require('./routes/authRoute')
 const saucesRoute = require('./routes/saucesRoute')
 const cors = require('cors')
+const { isAuth } = require('./middleware/auth')
 
 mongoose.connect(url, {
     useNewUrlParser: true,
@@ -20,7 +21,7 @@ app.use(express.json())
 
 //Route
 app.use('/api/auth', authRoute)
-app.use('/api/sauces', saucesRoute)
+app.use('/api/sauces', isAuth, saucesRoute)
 // Gestion des erreurs 
 app.use(errorHandling)
 
